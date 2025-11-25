@@ -293,7 +293,7 @@ pre {
 }
 
 button {
-  background-color: transparent;
+  background-color: #6A4E23;
   background-image: none;
 }
 
@@ -1239,7 +1239,10 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgba(30, 41, 59, var(--tw-bg-opacity));
 }
-
+.bg-miel{
+  --tw-bg-opacity: 1;
+  background-color: #6A4E23;
+}
 .active\:bg-indigo-600:active {
   --tw-bg-opacity: 1;
   background-color: rgba(79, 70, 229, var(--tw-bg-opacity));
@@ -1284,7 +1287,10 @@ select {
   --tw-border-opacity: 1;
   border-color: rgba(3, 105, 161, var(--tw-border-opacity));
 }
-
+.border-miel {
+  --tw-border-opacity: 1;
+  border-color: #6A4E23;
+}
 .border-blueGray-50 {
   --tw-border-opacity: 1;
   border-color: rgba(248, 250, 252, var(--tw-border-opacity));
@@ -2342,6 +2348,10 @@ select {
 .text-black {
   --tw-text-opacity: 1;
   color: rgba(0, 0, 0, var(--tw-text-opacity));
+}
+.text-grey {
+  --tw-text-opacity: 1;
+  color: grey;
 }
 
 .text-white {
