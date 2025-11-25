@@ -622,7 +622,11 @@ const Header = ({ cartCount, toggleCart, toggleMenu, isMenuOpen }) => (
     
     {/* Navigation */}
     <nav style={{ maxWidth: '1200px', margin: '0 auto', padding: '15px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <span style={{ fontSize: '28px', fontWeight: 'bold', color: styles.primary }}>FreshShop</span>
+     <img 
+    src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4R3BGcHoyzS1UKF4qUYpBdAAH5ExmXhWZ2g&s'     
+    alt="Logo L'Abeille Noire"
+    style={{ height: '60px' }} 
+  />
       
       <button onClick={toggleMenu} style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer' }} className="mobile-menu-btn">
         <Icon name={isMenuOpen ? 'close' : 'menu'} size={28}/>
