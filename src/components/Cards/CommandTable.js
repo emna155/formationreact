@@ -1,36 +1,32 @@
-import React ,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { getAllUsers } from "services/apiUser";
-import { deleteUserById } from "services/apiUser";
+import { getAllCommande } from "services/apiCommand";
+import { deleteById } from "services/apiCommand";
 // components
 
-
 export default function CardTable({ color }) {
+  const [commands, SetCommands] = useState([]);
 
-const[users,SetUsers]=useState([]);
-
-
-const fetchUsers=async()=>{
-  try{
-    const response=await getAllUsers();
-    console.log("Réponse:", response); //
-    SetUsers(response.data);
-  }
-  catch(error){
-    console.error("Error fetching users:",error);
-  }
-};
-useEffect(()=>{
-  fetchUsers();
-},[]);
-const handleDelete=async(id)=>{
-  try{
-    await deleteUserById(id);
-    fetchUsers();
-  }catch(error){
-    console.error("Error deleting user:",error);
-  }
-};
+  const fetchCommands = async () => {
+    try {
+      const response = await getAllCommande();
+      console.log("Réponse:", response); //
+      SetCommands(response.data);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
+  useEffect(() => {
+    fetchCommands();
+  }, []);
+  const handleDelete = async (id) => {
+    try {
+      await deleteById(id);
+      fetchCommands();
+    } catch (error) {
+      console.error("Error deleting user:", error);
+    }
+  };
 
   return (
     <>
@@ -49,7 +45,7 @@ const handleDelete=async(id)=>{
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                List users
+                List commands
               </h3>
             </div>
           </div>
@@ -67,7 +63,7 @@ const handleDelete=async(id)=>{
                       : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                   }
                 >
-                  profile
+                  commande
                 </th>
                 <th
                   className={
@@ -77,7 +73,7 @@ const handleDelete=async(id)=>{
                       : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                   }
                 >
-                nom prenom
+                  nom prenom
                 </th>
                 <th
                   className={
@@ -87,7 +83,7 @@ const handleDelete=async(id)=>{
                       : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                   }
                 >
-                  email
+                  Produits
                 </th>
                 <th
                   className={
@@ -97,7 +93,7 @@ const handleDelete=async(id)=>{
                       : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                   }
                 >
-                  age
+                  Total
                 </th>
                 <th
                   className={
@@ -120,48 +116,56 @@ const handleDelete=async(id)=>{
               </tr>
             </thead>
             <tbody>
-              {users.map((user,index)=>(
-              <tr>
-                <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                  <img
-                    src={`http://localhost:5000/images/${user.image_User}`}
-                    className="h-12 w-12 bg-white rounded-full border"
-                    alt="..."
-                  ></img>{" "}
+              {commands.map((command, index) => (
+                <tr>
+                  <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                    <span
+                      className={
+                        "ml-3 font-bold " +
+                        +(color === "light"
+                          ? "text-blueGray-600"
+                          : "text-white")
+                      }
+
+                    > {command.user?.nom}</span>
+                  </th>
                   
-                  <span
-                    className={
-                      "ml-3 font-bold " +
-                      +(color === "light" ? "text-blueGray-600" : "text-white")
-                    }
-                  >
-                    
-                  </span>
-                </th>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                {user.nom} {user.prenom}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {user.email}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <div className="flex">
-                   {user.age}
-                  </div>
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <div className="flex items-center">
-                  <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                     Update
-                  </button>
-                  <button onClick={()=>handleDelete(user._id)} className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">
-                  Delete
-                  </button>
-                  </div>
-                </td>
-            
-              </tr>
-             ))}
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  {command.email ?? "—"}
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  {command.produits.map((p) => (
+          <div key={p._id}>
+            {p.produit?.nom} — Qte: {p.quantite}
+          </div>
+        ))}
+
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    <div className="flex">
+
+                        {command.total}TND
+                    </div>
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                    <div className="flex items-center">
+                      <button
+                        className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                      >
+                        Update
+                      </button>
+                      <button
+                        onClick={() => handleDelete(command._id)}
+                        className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                        type="button"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
