@@ -666,7 +666,7 @@ export default function Index() {
   );
 }*/
 import React, { useState } from 'react';
-
+import { Link } from "react-router-dom";
 // Styles en ligne pour garantir l'affichage
 const styles = {
   // Couleurs
@@ -722,15 +722,33 @@ const Header = ({ cartCount, toggleCart, toggleMenu, isMenuOpen }) => (
         <Icon name={isMenuOpen ? 'close' : 'menu'} size={28}/>
       </button>
       
-      <ul style={{ display: 'flex', gap: '30px', listStyle: 'none', margin: 0, padding: 0 }}>
-        {['Home', 'About Us', 'Shop', 'Gallery', 'Contact'].map((item, i) => (
-          <li key={i}>
-            <button style={{ background: 'none', border: 'none', cursor: 'pointer', fontWeight: '600', fontSize: '16px', textTransform: 'uppercase', color: i === 0 ? styles.primary : '#333' }}>
-              {item}
-            </button>
-          </li>
-        ))}
-      </ul>
+     <ul style={{ display: 'flex', gap: '30px', listStyle: 'none', margin: 0, padding: 0 }}>
+  {['Accueil','Catalogue', 'Contact'].map((item, i) => {
+    // Définir le chemin de façon spécifique pour chaque item
+    let path;
+    if(item === 'Accueil') path = '/';
+    else if(item === 'Catalogue') path = '/catalogue';
+    else if(item === 'Contact') path = '/Landing';
+
+    return (
+      <li key={i}>
+        <Link
+          to={path}
+          style={{
+            fontWeight: "600",
+            fontSize: "16px",
+            textTransform: "uppercase",
+            color: i === 0 ? styles.primary : "#333",
+            textDecoration: "none",
+            cursor: "pointer",
+          }}
+        >
+          {item}
+        </Link>
+      </li>
+    );
+  })}
+</ul>
       
       <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
         <button style={{ background: 'none', border: 'none', cursor: 'pointer', color: styles.primary }}>
@@ -738,7 +756,10 @@ const Header = ({ cartCount, toggleCart, toggleMenu, isMenuOpen }) => (
         </button>
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
           <button  style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}>
-            <Icon name="user" size={22}/> 
+          <Link to="/auth/login" style={{ color: styles.primary }}>
+  <Icon name="user" size={22} />
+</Link> 
+          
           </button>
         </div>
         <button onClick={toggleCart} style={{ background: 'none', border: 'none', cursor: 'pointer', position: 'relative' }}>
@@ -789,7 +810,7 @@ const HeroSlider = () => {
 const Categories = () => {
   const cats = [
     { 
-      name: "Miels", 
+      name: "miels", 
       backgroundImage: "https://www.sweethoneyco.co.uk/wp-content/uploads/2020/08/bee-products-scaled.jpg" 
     },
     { 
@@ -805,6 +826,9 @@ const Categories = () => {
 
   return (
     <section style={{ padding: '60px 20px', maxWidth: '1200px', margin: '0 auto' }}>
+       <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+        <h2 style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '10px' }}>Categories</h2>
+      </div>
       <div style={{ 
         display: 'grid', 
         gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
@@ -841,7 +865,7 @@ const Categories = () => {
                 color: c.backgroundImage ? '#fff' : '#000', 
                 textShadow: '0px 2px 5px rgba(0,0,0,0.5)'
               }}>
-                {c.name}
+                
               </span>
             </div>
 
@@ -861,7 +885,7 @@ const Categories = () => {
                 cursor: 'pointer'
               }}
             >
-              Voir {c.name}
+              {c.name}
             </button>
           </div>
         ))}
@@ -878,6 +902,7 @@ const ProductCard = ({ product, onAddToCart }) => {
     
     <div 
       style={{ backgroundColor: '#fff', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 5px 20px rgba(0,0,0,0.1)', position: 'relative' }}
+      
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
@@ -944,39 +969,7 @@ const Products = ({ addToCart }) => {
   );
 };
 
-// Blog
-const Blog = () => {
-  const posts = [
-    { title: "Healthy Eating Tips", desc: "Discover the best ways to incorporate fresh vegetables into your daily diet." },
-    { title: "Organic Farming", desc: "Learn about sustainable farming practices and their benefits." },
-    { title: "Seasonal Fruits", desc: "A guide to choosing the best seasonal fruits." },
-  ];
-  
-  return (
-    <section style={{ padding: '60px 20px', backgroundColor: '#f5f5f5' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-          <h2 style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '10px' }}>Latest Blog</h2>
-          <p style={{ color: '#666' }}>Tips and news about healthy living</p>
-        </div>
-        
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
-          {posts.map((p, i) => (
-            <div key={i} style={{ backgroundColor: '#fff', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 5px 20px rgba(0,0,0,0.1)' }}>
-              <div style={{ height: '180px', backgroundColor: '#e8f5e9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ fontSize: '60px' }}>{p.emoji}</span>
-              </div>
-              <div style={{ padding: '20px' }}>
-                <h3 style={{ fontWeight: 'bold', fontSize: '18px', marginBottom: '10px' }}>{p.title}</h3>
-                <p style={{ color: '#666', fontSize: '14px' }}>{p.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
+
 
 // Footer
 const Footer = () => (
@@ -1063,7 +1056,7 @@ export default function Landing() {
         <HeroSlider/>
         <Categories/>
         <Products addToCart={addToCart}/>
-        <Blog/>
+        
       </main>
       <Footer/>
     </div>

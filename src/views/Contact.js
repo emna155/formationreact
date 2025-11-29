@@ -1,21 +1,21 @@
 import React from "react";
 
+
 // components
-import IndexNavbar from "components/Navbars/AuthNavbar";
+import IndexNavbar from "components/Navbars/IndexNavbar.js";
 //import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
 import { MdLocationOn, MdPhone, MdEmail } from "react-icons/md";
 
-export default function Landing() {
+export default function Contact() {
   return (
     <>
-      <IndexNavbar transparent />
       <main>
         <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
-              backgroundImage: `url(${require("assets/img/contact.avif").default})`,
+              backgroundImage: `url(${require("assets/img/angular.jpg").default})`,
             }}
           >
             <span
@@ -504,7 +504,8 @@ export default function Landing() {
                   <MdLocationOn className="text-orange-500 text-2xl" />
                 </div>
                 <p className="mt-2 mb-4 text-white">
-                  Bizerte,Menzel bourguiba, Tunisie
+                  Avenue Habib Bourguiba,
+4000 Sousse, Tunisie
                 </p>
               </div>
               <div className="w-full lg:w-3/12 px-4 text-center">
@@ -525,7 +526,7 @@ export default function Landing() {
                   Launch time
                 </h5>*/}
                 <p className="mt-2 mb-4 text-white">
-                  contact@abeillenoire.tn
+                  contact@gymzone.tn
                 </p>
               </div>
             </div>
@@ -533,7 +534,6 @@ export default function Landing() {
         </section>
         
       </main>
-      <Footer />
     </>
   );
 }
