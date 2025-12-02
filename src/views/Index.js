@@ -667,6 +667,7 @@ export default function Index() {
 }*/
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
+import SiteNavbar from "../components/Navbars/SiteNavbar"
 // Styles en ligne pour garantir l'affichage
 const styles = {
   // Couleurs
@@ -697,79 +698,7 @@ const Icon = ({ name, size = 20, color = 'currentColor' }) => {
 };
 
 // Header
-const Header = ({ cartCount, toggleCart, toggleMenu, isMenuOpen }) => (
-  <header style={{ position: 'sticky', top: 0, zIndex: 1000, backgroundColor: '#fff', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }}>
-    {/* Top Bar */}
-    <div style={{ backgroundColor: '#000', color: '#fff', padding: '10px 0' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px', display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-            <Icon name="phone" size={16}/> +216 29 743 489 
-          </span>
-        </div>
-      </div>
-    </div>
-    
-    {/* Navigation */}
-    <nav style={{ maxWidth: '1200px', margin: '0 auto', padding: '15px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-     <img 
-    src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4R3BGcHoyzS1UKF4qUYpBdAAH5ExmXhWZ2g&s'     
-    alt="Logo L'Abeille Noire"
-    style={{ height: '60px' }} 
-  />
-      
-      <button onClick={toggleMenu} style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer' }} className="mobile-menu-btn">
-        <Icon name={isMenuOpen ? 'close' : 'menu'} size={28}/>
-      </button>
-      
-     <ul style={{ display: 'flex', gap: '30px', listStyle: 'none', margin: 0, padding: 0 }}>
-  {['Accueil','Catalogue', 'Contact'].map((item, i) => {
-    // Définir le chemin de façon spécifique pour chaque item
-    let path;
-    if(item === 'Accueil') path = '/';
-    else if(item === 'Catalogue') path = '/catalogue';
-    else if(item === 'Contact') path = '/Landing';
 
-    return (
-      <li key={i}>
-        <Link
-          to={path}
-          style={{
-            fontWeight: "600",
-            fontSize: "16px",
-            textTransform: "uppercase",
-            color: i === 0 ? styles.primary : "#333",
-            textDecoration: "none",
-            cursor: "pointer",
-          }}
-        >
-          {item}
-        </Link>
-      </li>
-    );
-  })}
-</ul>
-      
-      <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-        <button style={{ background: 'none', border: 'none', cursor: 'pointer', color: styles.primary }}>
-          <Icon name="search" size={22}/>
-        </button>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-          <button  style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '5px' }}>
-          <Link to="/auth/login" style={{ color: styles.primary }}>
-  <Icon name="user" size={22} />
-</Link> 
-          
-          </button>
-        </div>
-        <button onClick={toggleCart} style={{ background: 'none', border: 'none', cursor: 'pointer', position: 'relative' }}>
-          <Icon name="cart" size={22}/>
-          <span style={{ position: 'absolute', top: '-8px', right: '-8px', backgroundColor: styles.primary, color: '#fff', fontSize: '12px', width: '20px', height: '20px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{cartCount}</span>
-        </button>
-      </div>
-    </nav>
-  </header>
-);
 
 // Hero Slider
 const HeroSlider = () => {
@@ -777,7 +706,7 @@ const HeroSlider = () => {
   const slides = [
     { title: "Bienvenue dans la ruche L’Abeille Noire", subtitle: "là où les abeilles travaillent avec générosité et nous offrent un miel d’une pureté incomparable. Goûtez la nature,",  bg:
     "url(" + require("assets/img/p5.png").default + ")" },
-    { title: "Organic Products", subtitle: "Best quality products directly from farms to your table", bg: "url(https://i.pinimg.com/originals/85/95/95/859595887274b1e05312239796942c53.gif)" },
+    { title: "Organic Products", subtitle: "Best quality products directly from farms to your table", bg: "url(https://png.pngtree.com/thumb_back/fh260/background/20240914/pngtree-photo-of-a-jar-sweet-fresh-delicious-bee-honey-in-glass-image_16210737.jpg)" },
     { title: "Special Offers", subtitle: "Up to 50% off on selected items this week", bg: "url(" + require("assets/img/p3.jpg").default + ")" },
   ];
   
@@ -815,11 +744,11 @@ const Categories = () => {
     },
     { 
       name: "Produits Apicoles", 
-      backgroundImage: "https://www.sweethoneyco.co.uk/wp-content/uploads/2020/08/bee-products-scaled.jpg" 
+      backgroundImage: "https://img.passeportsante.net/1200x675/2021-05-03/i102093-miel-nu.webp" 
     },    
     { 
       name: "Autres Produits ", 
-      backgroundImage: "https://www.sweethoneyco.co.uk/wp-content/uploads/2020/08/bee-products-scaled.jpg" 
+      backgroundImage: "https://www.neozone.org/blog/wp-content/uploads/2020/12/miel-cosmetique-002.jpg" 
     
     },
   ];
@@ -894,80 +823,64 @@ const Categories = () => {
   );
 };
 
-// Product Card
-const ProductCard = ({ product, onAddToCart }) => {
-  const [hover, setHover] = useState(false);
-  
-  return (
-    
-    <div 
-      style={{ backgroundColor: '#fff', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 5px 20px rgba(0,0,0,0.1)', position: 'relative' }}
-      
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-    >
-      
-      <div style={{ position: 'relative', height: '200px', backgroundColor: '#e8f5e9', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        {product.badge && (
-          <span style={{ position: 'absolute', top: '10px', right: '10px', backgroundColor: product.badge === 'Sale' ? styles.primary : '#000', color: '#fff', padding: '5px 12px', fontSize: '12px', fontWeight: 'bold' }}>
-            {product.badge}
-          </span>
-        )}
-        <span style={{ fontSize: '70px' }}>{product.emoji}</span>
-        
-        {hover && (
-          <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <div style={{ position: 'absolute', bottom: '10px', right: '10px', display: 'flex', flexDirection: 'column', gap: '5px' }}>
-              <button style={{ backgroundColor: styles.primary, border: 'none', padding: '8px', cursor: 'pointer', color: '#fff' }}><Icon name="eye" size={18}/></button>
-              <button style={{ backgroundColor: styles.primary, border: 'none', padding: '8px', cursor: 'pointer', color: '#fff' }}><Icon name="heart" size={18}/></button>
-            </div>
-            <button onClick={() => onAddToCart(product)} style={{ position: 'absolute', bottom: '10px', left: '10px', backgroundColor: styles.primary, border: 'none', padding: '10px 20px', cursor: 'pointer', color: '#fff', fontWeight: 'bold' }}>
-              Add to Cart
-            </button>
-          </div>
-        )}
-      </div>
-      <div style={{ padding: '15px', backgroundColor: '#f5f5f5' }}>
-        <h4 style={{ fontWeight: 'bold', marginBottom: '10px', color: '#333' }}>{product.name}</h4>
-        <span style={{ backgroundColor: styles.primary, color: '#fff', padding: '5px 12px', fontWeight: 'bold' }}>${product.price}</span>
-      </div>
-    </div>
-  );
-};
 
-// Products Section
-const Products = ({ addToCart }) => {
-  const [filter, setFilter] = useState('all');
-  const products = [
-    { id: 1, name: "Fresh Broccoli", price: "7.79", badge: "Sale", category: "best" },
-    { id: 2, name: "Organic Apples", price: "9.79", badge: "New", category: "top"},
-    { id: 3, name: "Red Tomatoes", price: "10.79", badge: "Sale", category: "top" },
-    { id: 4, name: "Fresh Carrots", price: "15.79", badge: "Sale", category: "best" },
-  ];
+
+//choisir
+const Choisir=()=>{
   
-  const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+return(
+  <div >
+    <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+        <h2 style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '10px' }}>Pourquoi nous choisir ?</h2>
+        <p style={{ color: '#666' }}>Sur cette base, nous pouvons être le bon choix</p>
+      </div>
+      <div style={{ display: 'flex', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px' }}>
+          <div className="w-full md:w-4/12 px-4 text-center ">
+                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                  <div className="px-4 py-5 flex-auto">
+                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-orange-500">
+<i class="fas fa-star"></i>                    </div>
+                    <h6 className="text-xl font-semibold">certified product</h6>
+                  </div>
+                </div>
+              </div>
+                <div className="w-full md:w-4/12 px-4 text-center">
+                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                  <div className="px-4 py-5 flex-auto">
+                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-orange-500">
+<i class="fas fa-graduation-cap"></i>                    </div>
+                    <h6 className="text-xl font-semibold">high quality product </h6>
+                  </div>
+                </div>
+              </div>
+                <div className="w-full md:w-4/12 px-4 text-center">
+                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                  <div className="px-4 py-5 flex-auto">
+                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-orange-500">
+<i class="fas fa-shipping-fast"></i>                    </div>
+                    <h6 className="text-xl font-semibold">Plus de 20 ans d'expérience</h6>
+                  </div>
+                </div>
+              </div>
+               <div className="w-full md:w-4/12 px-4 text-center">
+                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
+                  <div className="px-4 py-5 flex-auto">
+                    <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-orange-500">
+                      <i class="fab fa-pagelines"></i>
+                    </div>
+                    <h6 className="text-xl font-semibold">
+Produits 100% naturels</h6>
+                  </div>
+                </div>
+              </div>
+      </div>
+  </div>
   
-  return (
-    <section style={{ padding: '60px 20px', maxWidth: '1200px', margin: '0 auto' }}>
-      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-        <h2 style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '10px' }}>Products</h2>
-        <p style={{ color: '#666' }}>Fresh organic products for your healthy lifestyle</p>
-      </div>
-      
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '40px', flexWrap: 'wrap' }}>
-        {[{k:'all',l:'All'}, {k:'top',l:'Top Featured'}, {k:'best',l:'Best Seller'}].map(f => (
-          <button key={f.k} onClick={() => setFilter(f.k)} style={{ backgroundColor: filter === f.k ? '#000' : styles.primary, color: '#fff', border: 'none', padding: '12px 30px', fontSize: '16px', fontWeight: '600', cursor: 'pointer' }}>
-            {f.l}
-          </button>
-        ))}
-      </div>
-      
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px' }}>
-        {filtered.map(p => <ProductCard key={p.id} product={p} onAddToCart={addToCart}/>)}
-      </div>
-    </section>
-  );
-};
+              
+          
+)
+}
+
 
 
 
@@ -1045,7 +958,7 @@ export default function Landing() {
   
   return (
     <div style={{ fontFamily: "'Poppins', 'Segoe UI', sans-serif", minHeight: '100vh' }}>
-      <Header 
+      <SiteNavbar 
         cartCount={cart.length} 
         toggleCart={() => setShowCart(!showCart)} 
         toggleMenu={() => setIsMenuOpen(!isMenuOpen)} 
@@ -1055,7 +968,7 @@ export default function Landing() {
       <main>
         <HeroSlider/>
         <Categories/>
-        <Products addToCart={addToCart}/>
+       <Choisir/>
         
       </main>
       <Footer/>

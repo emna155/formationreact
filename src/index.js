@@ -15,7 +15,8 @@ import Auth from "layouts/Auth.js";
 import Landing from "views/Landing.js";
 import Profile from "views/Profile.js";
 import Index from "views/Index.js";
-import Shop from "views/Shop.js";
+import Catalogue from "views/Catalogue.js";
+
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
@@ -23,10 +24,10 @@ ReactDOM.render(
       <Route path="/admin" component={Admin} />
       <Route path="/auth" component={Auth} />
       {/* add routes without layouts */}
-        
+      
       <Route path="/landing" exact component={Landing} />
       <Route path="/profile" exact component={Profile} />
-      <Route path="/Shop" exact component={Shop} />
+      <Route path="/catalogue" exact component={Catalogue} />
       <Route path="/" exact component={Index} />
       {/* add redirect for first page */}
       <Redirect from="*" to="/" />
