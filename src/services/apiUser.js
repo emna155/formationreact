@@ -8,3 +8,5 @@ export async function getAllUsers() {
 export async function deleteUserById(id){
   return axios.delete(`${API_URL}/deleteUserById/${id}`,id);
 }
+
+

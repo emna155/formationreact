@@ -1,16 +1,27 @@
 import React from "react";
-
+import { useState } from "react";
+import CartSidebar from "components/Sidebar/CartSidebar";
 // components
 import SiteNavbar from "components/Navbars/SiteNavbar";
 //import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
 import { MdLocationOn, MdPhone, MdEmail } from "react-icons/md";
-
+import { useContext } from "react";
+import { CartContext } from './CartContext';
 export default function Landing() {
+  const { cart } = useContext(CartContext);
+    const [showCart, setShowCart] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <>
-      <SiteNavbar/>
-      <main className="bg-black">
+<SiteNavbar 
+        cartCount={cart.reduce((total, item) => total + (item.quantity || 1), 0)}
+
+        toggleCart={() => setShowCart(!showCart)} 
+        toggleMenu={() => setIsMenuOpen(!isMenuOpen)} 
+        isMenuOpen={isMenuOpen}
+      />
+<CartSidebar cart={cart} showCart={showCart} toggleCart={() => setShowCart(false)} />          <main className="bg-black">
         <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
           <div
             className="absolute top-0 w-full h-full bg-center bg-cover "
@@ -537,6 +548,7 @@ export default function Landing() {
         </section>
         
       </main>
+      
       <Footer />
     </>
   );
